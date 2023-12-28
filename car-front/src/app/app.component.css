@@ -1,0 +1,29 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+
+
+.main-body{
+  margin: 50px auto;
+  max-width: 1348px;
+}
+
+.main-body mat-form-field {
+  width: 75%;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}

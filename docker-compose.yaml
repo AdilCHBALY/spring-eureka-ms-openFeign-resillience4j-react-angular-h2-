@@ -1,0 +1,66 @@
+version: '3'
+services:
+  adil-eureka-server:
+    container_name: adil-eureka-server
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      retries: 3
+  adil-api-gateway:
+    container_name: adil-api-gateway
+    build: ./api-gateway
+    ports:
+      - "8888:8888"
+    environment:
+      DISCOVERY_SERVICE_URL: http://adil-eureka-server:8761/eureka/
+    depends_on:
+      adil-eureka-server:
+        condition: service_healthy
+  adil-client-server:
+    container_name: adil-client-server
+    build: ./client-service
+    ports:
+      - "8081:8081"
+    environment:
+      DISCOVERY_SERVICE_URL: http://adil-eureka-server:8761/eureka/
+    depends_on:
+      adil-eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://adil-client-server:8081/actuator/health" ]
+      interval: 10s
+      retries: 3
+  adil-car-server:
+    container_name: adil-car-server
+    build: ./car-ms-service
+    ports:
+      - "8082:8082"
+    environment:
+      DISCOVERY_SERVICE_URL: http://adil-eureka-server:8761/eureka/
+    depends_on:
+      adil-eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://adil-car-server:8082/actuator/health" ]
+      interval: 10s
+      retries: 3
+  adil-client-front:
+    container_name: adil-client-front
+    build: ./client-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      adil-client-server:
+        condition: service_healthy
+  adil-car-front:
+    container_name: adil-car-front
+    build: ./car-front
+    ports:
+      - "4200:80"
+    depends_on:
+      adil-car-server:
+        condition: service_healthy
+

@@ -1,0 +1,69 @@
+<mat-toolbar color="primary">
+  <span>Car Crud</span>
+  <span class="example-spacer"></span>
+  <div class="buttons">
+    <button mat-raised-button (click)="goToUrl()">
+      ADD CLIENT
+    </button>
+    <button mat-raised-button (click)="openAddEditCarForm()">
+      ADD CAR
+    </button>
+  </div>
+</mat-toolbar>
+
+
+<div class="main-body">
+  <!-- <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field> -->
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
+        <td mat-cell *matCellDef="let row"> {{row.brand}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+        <td mat-cell *matCellDef="let row"> {{row.model}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="matricue">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
+        <td mat-cell *matCellDef="let row"> {{row.matricue}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+        <td mat-cell *matCellDef="let row"> {{row.client.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" (click)="openEditForm(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteCar(row.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

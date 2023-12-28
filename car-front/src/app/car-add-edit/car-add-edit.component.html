@@ -1,0 +1,35 @@
+<div mat-dialog-title>
+    <h1>Add Your Car</h1>
+</div>
+<form [formGroup]="carForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Brand</mat-label>
+                <input matInput formControlName="brand" placeholder="Ex . Chokran10">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Model</mat-label>
+                <input matInput formControlName="model" placeholder="Ex . Batman Vehicule :D">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Matricule</mat-label>
+                <input matInput formControlName="matricue">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Client</mat-label>
+                <mat-select formControlName="client">
+                @for (client of clients; track client) {
+                    <mat-option [value]="client">{{client.name}}</mat-option>
+                }
+                </mat-select>
+                </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="actions">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary"  type="submit">{{data ? 'Update' : 'Save'}}</button>
+    </div>
+</form>
